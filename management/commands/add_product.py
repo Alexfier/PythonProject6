@@ -12,8 +12,8 @@ class Command(BaseCommand):
         сategory, _ = Category.objects.get_or_create(name='Фрукты')
 
         products = [
-            {'name': 'апельсин',"description": "оранжевый", 'сategory': сategory},
-            {"name": "яблоко", "description": "зеленое", 'сategory': сategory}
+            {'name': 'апельсин',"description": "оранжевый", 'category': category},
+            {"name": "яблоко", "description": "зеленое", 'category': category}
         ]
 
         for prod in products:
