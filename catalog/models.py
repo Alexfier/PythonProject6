@@ -1,35 +1,16 @@
 from django.db import models
 
+# Create your models here.
 
-class Product(models.Model):
-    name = models.CharField(max_length=250, verbose_name='название', help_text='Введите название')
-    description = models.TextField(max_length=250, verbose_name='описание', help_text='Введите описание')
-    image = models.ImageField(upload_to='media/photo', blank=True, null=True, verbose_name='фото',
-                              help_text='Загрузити фотографию')
-    category = models.ForeignKey("Category", on_delete=models.CASCADE, verbose_name='категория',
-                                 help_text='Введите категорию', blank=True, null=True)
-    price = models.CharField(max_length=100, verbose_name='Цена', help_text='Введите цену', blank=True, null=True)
-    created_at = models.DateField(verbose_name='дата создания', help_text='Введите датe создания', blank=True,
-                                  null=True)
-    updated_at = models.DateTimeField(auto_now=True, verbose_name='дата последнего изменения', blank=True, null=True)
-
-    def __str__(self):
-        return f'{self.name}'
-
-    class Meta:
-        verbose_name = 'продукт'
-        verbose_name_plural = 'продукты'
-
-
-class Category(models.Model):
-    name = models.CharField(max_length=250, verbose_name='название', help_text='Введите название', blank=True,
-                            null=True)
-    description = models.TextField(max_length=250, verbose_name='описание', help_text='Введите описание', blank=True,
-                                   null=True)
+class Blog(models.Model):
+    title = models.CharField(max_length=200, verbose_name='заголовок')
+    content = models.TextField(null=True, blank=True, verbose_name='содержимое')
+    preview = models.ImageField(upload_to='blog/preview',
+                                null=True, blank=True, verbose_name='изображение',
+                                help_text='Загрузите изображение')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='дата создания')
+    is_published = models.BooleanField(default=False, verbose_name='признак публикации')
+    views_count = models.PositiveIntegerField(default=0, verbose_name='количество просмотров')
 
     def __str__(self):
-        return f'{self.name}'
-
-    class Meta:
-        verbose_name = 'категория'
-        verbose_name_plural = 'категории'
+        return self.title
